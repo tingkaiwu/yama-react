@@ -10,6 +10,7 @@ import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
+import Chat from "components/Chat/Chat.js";
 
 import routes from "routes.js";
 
@@ -48,7 +49,8 @@ export default function Admin({ ...rest }) {
   // states and functions
   const [image, setImage] = React.useState(bgImage);
   const [color, setColor] = React.useState("blue");
-  const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
+  const [fixedClasses, setFixedClasses] = React.useState("dropdown");
+  const [chatClasses, setChatClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleImageClick = image => {
     setImage(image);
@@ -61,6 +63,13 @@ export default function Admin({ ...rest }) {
       setFixedClasses("dropdown show");
     } else {
       setFixedClasses("dropdown");
+    }
+  };
+  const handleChatClick = () => {
+    if (chatClasses === "dropdown") {
+      setChatClasses("dropdown show");
+    } else {
+      setChatClasses("dropdown");
     }
   };
   const handleDrawerToggle = () => {
@@ -126,6 +135,14 @@ export default function Admin({ ...rest }) {
           bgImage={image}
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
+        />
+        <Chat
+          handleImageClick={handleImageClick}
+          handleColorClick={handleColorClick}
+          bgColor={color}
+          bgImage={image}
+          handleChatClick={handleChatClick}
+          chatClasses={chatClasses}
         />
       </div>
     </div>
