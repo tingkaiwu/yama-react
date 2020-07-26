@@ -10,7 +10,7 @@ import Navbar from "components/Navbars/Navbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
-import Chat from "components/Chat/Chat.js";
+import Chat from "components/Chat/App.js";
 
 import routes from "routes.js";
 
@@ -18,6 +18,12 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+
+import registerServiceWorker from '../components/Chat/registerServiceWorker';
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from '../components/Chat/reducers';
 
 let ps;
 
@@ -50,8 +56,9 @@ export default function Admin({ ...rest }) {
   const [image, setImage] = React.useState(bgImage);
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
-  const [chatClasses, setChatClasses] = React.useState("dropdown");
+  const [chatClasses, setChatClasses] = React.useState("chat-dropdown chat-show");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const createStoreWithMiddleware = applyMiddleware()(createStore);
   const handleImageClick = image => {
     setImage(image);
   };
@@ -66,10 +73,10 @@ export default function Admin({ ...rest }) {
     }
   };
   const handleChatClick = () => {
-    if (chatClasses === "dropdown") {
-      setChatClasses("dropdown show");
+    if (chatClasses === "chat-dropdown") {
+      setChatClasses("chat-dropdown chat-show");
     } else {
-      setChatClasses("dropdown");
+      setChatClasses("chat-dropdown");
     }
   };
   const handleDrawerToggle = () => {
@@ -125,8 +132,8 @@ export default function Admin({ ...rest }) {
             <div className={classes.container}>{switchRoutes}</div>
           </div>
         ) : (
-          <div className={classes.map}>{switchRoutes}</div>
-        )}
+            <div className={classes.map}>{switchRoutes}</div>
+          )}
         {getRoute() ? <Footer /> : null}
         <FixedPlugin
           handleImageClick={handleImageClick}
@@ -136,15 +143,18 @@ export default function Admin({ ...rest }) {
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
         />
-        <Chat
-          handleImageClick={handleImageClick}
-          handleColorClick={handleColorClick}
-          bgColor={color}
-          bgImage={image}
-          handleChatClick={handleChatClick}
-          chatClasses={chatClasses}
-        />
+        <Provider store={createStoreWithMiddleware(reducers)} >
+          <Chat
+            handleImageClick={handleImageClick}
+            handleColorClick={handleColorClick}
+            bgColor={color}
+            bgImage={image}
+            handleChatClick={handleChatClick}
+            chatClasses={chatClasses}
+          />
+        </Provider>
       </div>
     </div>
   );
 }
+registerServiceWorker();
