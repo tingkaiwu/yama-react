@@ -1,5 +1,5 @@
 import React from 'react';
-import { Login } from './views/SignIn/Login';
+import Login from './views/SignIn/SignIn';
 import Admin from './layouts/Admin';
 import { Switch, Route, Redirect } from 'react-router'
 
