@@ -9,7 +9,7 @@ export class Main extends React.Component {
     }
 
     getHome = () => {
-        return this.props.isLoggedIn ? <Admin /> : <Redirect to="/login" />;
+        return this.props.isLoggedIn ? <Admin handleLogout={this.props.handleLogout} /> : <Redirect to="/login" />;
     }
     render() {
         return (

@@ -10,7 +10,6 @@ class App extends React.Component {
   }
 
   handleLoginSucceed = (token) => {
-    console.log('TOKEN', token)
     localStorage.setItem('TOKEN_KEY', token)
     this.setState({ isLoggedIn: true });
   }
@@ -23,7 +22,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Main handleLoginSucceed={this.handleLoginSucceed} isLoggedIn={this.state.isLoggedIn} />
+        <Main handleLoginSucceed={this.handleLoginSucceed} handleLogout={this.handleLogout} isLoggedIn={this.state.isLoggedIn} />
       </div>
     );
   }

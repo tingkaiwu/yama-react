@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Image from '../../assets/img/432.jpg';
+// import { useUser } from './UseUser';
 
 function Copyright() {
     return (
@@ -19,7 +21,7 @@ function Copyright() {
             {'Copyright © '}
             <Link color="inherit" href="https://material-ui.com/">
                 YAMA
-      </Link>{' '}
+            </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundImage: `url(${Image})`,
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -60,8 +62,46 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignInSide() {
+export default function SignInSide(props) {
     const classes = useStyles();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    // const { setAccessToken } = useUser();
+
+    function handleUsernameChange(event) {
+        setUsername(event.target.value);
+    }
+
+    function handlePasswordChange(event) {
+        setPassword(event.target.value);
+    }
+
+    // https://run.mocky.io/v3/e3abae96-1717-4d18-969b-3773dc103495
+    // https://yama-backend.herokuapp.com/auth/login
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        fetch('https://run.mocky.io/v3/e3abae96-1717-4d18-969b-3773dc103495', {
+            method: 'POST',
+            body: JSON.stringify({
+                "username": username,
+                "password": password,
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error(response.stateText);
+            })
+            .then((data) => {
+                props.handleLoginSucceed(data);
+                // message.success('Login succeed!');
+            })
+            .catch((err) => {
+                console.error(err);
+                // message.error('Login failed.');
+            });
+    }
 
     return (
         <Grid container component="main" className={classes.root}>
@@ -75,17 +115,19 @@ export default function SignInSide() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} noValidate onSubmit={handleFormSubmit}>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
                             autoFocus
+                            onChange={handleUsernameChange}
+                            value={username}
                         />
                         <TextField
                             variant="outlined"
@@ -97,6 +139,8 @@ export default function SignInSide() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={handlePasswordChange}
+                            value={password}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
@@ -114,13 +158,13 @@ export default function SignInSide() {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href="#" variant="body2" className={classes.label}>
                                     Forgot password?
-                        </Link>
+                                </Link>
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    {"Don't have an account?"}
                                 </Link>
                             </Grid>
                         </Grid>
