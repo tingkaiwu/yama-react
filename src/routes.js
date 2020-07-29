@@ -36,7 +36,9 @@ import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
 
+
 export const routesTenant = [
+
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -110,6 +112,7 @@ export const routesTenant = [
     layout: "/admin"
   }
 ];
+
 
 export const routesManager = [
   {
@@ -185,3 +188,4 @@ export const routesManager = [
     layout: "/admin"
   }
 ];
+
