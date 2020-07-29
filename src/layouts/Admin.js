@@ -11,6 +11,7 @@ import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
+
 import routes from "routes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
@@ -48,7 +49,9 @@ export default function Admin({ ...rest }) {
   // states and functions
   const [image, setImage] = React.useState(bgImage);
   const [color, setColor] = React.useState("blue");
+
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleImageClick = image => {
     setImage(image);
@@ -63,6 +66,7 @@ export default function Admin({ ...rest }) {
       setFixedClasses("dropdown");
     }
   };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -127,6 +131,7 @@ export default function Admin({ ...rest }) {
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
         />
+
       </div>
     </div>
   );
