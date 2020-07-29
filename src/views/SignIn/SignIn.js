@@ -13,7 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from '../../assets/img/432.jpg';
-// import { useUser } from './UseUser';
+
+import { API_ROOT } from '../../constants';
 
 function Copyright() {
     return (
@@ -66,7 +67,6 @@ export default function SignInSide(props) {
     const classes = useStyles();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    // const { setAccessToken } = useUser();
 
     function handleUsernameChange(event) {
         setUsername(event.target.value);
@@ -76,12 +76,11 @@ export default function SignInSide(props) {
         setPassword(event.target.value);
     }
 
-    // https://run.mocky.io/v3/e3abae96-1717-4d18-969b-3773dc103495
-    // https://yama-backend.herokuapp.com/auth/login
     function handleFormSubmit(event) {
         event.preventDefault();
-        fetch('https://run.mocky.io/v3/e3abae96-1717-4d18-969b-3773dc103495', {
+        fetch(`${API_ROOT}/auth/login`, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "username": username,
                 "password": password,
