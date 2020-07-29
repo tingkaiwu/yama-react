@@ -1,8 +1,5 @@
 import React from 'react';
 import { Main } from './Main';
-// import { TOKEN_KEY } from '../constants';
-
-import './assets/css/App.css';
 
 class App extends React.Component {
   state = {
