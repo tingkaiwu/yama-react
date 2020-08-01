@@ -7,7 +7,10 @@ class App extends React.Component {
   }
 
   handleLoginSucceed = (token) => {
-    localStorage.setItem('TOKEN_KEY', token)
+    const tokenMap = JSON.parse(token);
+    localStorage.setItem('TOKEN_KEY', token);
+    localStorage.setItem('KEY', tokenMap.token);
+    localStorage.setItem('USER_NAME', tokenMap.username);
     this.setState({ isLoggedIn: true });
   }
 

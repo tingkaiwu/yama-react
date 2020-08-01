@@ -26,6 +26,7 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -112,6 +113,7 @@ const DialogActions = withStyles((theme) => ({
         padding: theme.spacing(1),
     },
 }))(MuiDialogActions);
+
 
 export default function SignInSide(props) {
     const classes = useStyles();

@@ -72,6 +72,7 @@ export default function Admin({ ...rest }) {
       setFixedClasses("dropdown");
     }
   };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
