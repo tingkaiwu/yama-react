@@ -15,16 +15,13 @@ import { routesManager, routesTenant } from "routes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
+import logo from "assets/img/Company.png";
 import bgImage from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/reactlogo.png";
+
 let ps;
 
-const isManager = () => {
-  return false;
-}
-
 const routes = () => {
-  if (isManager()) {
+  if (localStorage.getItem('TOKEN_KEY') !== null && JSON.parse(localStorage.getItem('TOKEN_KEY')).userType !== 'Tenant') {
     return routesManager;
   }
   else {
@@ -108,7 +105,7 @@ export default function Admin({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes()}
-        logoText={"Creative Tim"}
+        logoText={"432 Park Ave"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
